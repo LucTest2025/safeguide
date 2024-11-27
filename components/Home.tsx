@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const usersData = await getUsers();
+    const usersData = await getUsers(); 
     setUsers(usersData || []); // Initialiser avec un tableau vide si usersData est null/undefined
   };
 
