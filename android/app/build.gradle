@@ -118,9 +118,9 @@ dependencies {
         implementation jscFlavor
     }
 
-    // Import Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:33.6.0')
-
-    // Add Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics'
+    // Firebase dependencies via BoM
+    implementation platform('com.google.firebase:firebase-bom:33.6.0') // BoM pour aligner les versions
+    implementation 'com.google.firebase:firebase-analytics'           // Firebase Analytics
+    implementation 'com.google.firebase:firebase-firestore'           // Firebase Firestore
+    implementation 'com.google.firebase:firebase-messaging'           // Firebase Cloud Messaging
 }
