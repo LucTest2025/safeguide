@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, Alert } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, PermissionsAndroid, ActivityIndicator } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import { PermissionsAndroid } from 'react-native';
-import { Linking, ActivityIndicator } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home';
 import Setting from './components/Setting';
@@ -11,7 +10,7 @@ import Setting from './components/Setting';
 const Stack = createStackNavigator();
 const NAVIGATION_IDS = ["home", "settings"];
 
-function buildDeepLinkFromNotificationData(data: any): string | null {
+function buildDeepLinkFromNotificationData(data) {
   const navigationId = data?.navigationId;
   if (!NAVIGATION_IDS.includes(navigationId)) {
     console.warn('Unverified navigationId', navigationId);
@@ -31,40 +30,37 @@ const linking = {
   config: {
     screens: {
       Home: "home",
-      Settings: "settings"
-    }
+      Settings: "settings",
+    },
   },
   async getInitialURL() {
     const url = await Linking.getInitialURL();
     if (typeof url === 'string') {
       return url;
     }
-    // getInitialNotification: When the application is opened from a quit state.
     const message = await messaging().getInitialNotification();
     const deeplinkURL = buildDeepLinkFromNotificationData(message?.data);
     if (typeof deeplinkURL === 'string') {
       return deeplinkURL;
     }
   },
-  subscribe(listener: (url: string) => void) {
-    const onReceiveURL = ({ url }: { url: string }) => listener(url);
+  subscribe(listener) {
+    const onReceiveURL = ({ url }) => listener(url);
 
-    // Listen to incoming links from deep linking
     const linkingSubscription = Linking.addEventListener('url', onReceiveURL);
+
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
     });
 
     const foreground = messaging().onMessage(async remoteMessage => {
       console.log('A new FCM message arrived!', remoteMessage);
-      // Show alert for foreground notification
       Alert.alert(
         remoteMessage.notification?.title || 'Notification',
         remoteMessage.notification?.body || 'No message body'
       );
     });
 
-    // onNotificationOpenedApp: When the application is running, but in the background.
     const unsubscribe = messaging().onNotificationOpenedApp(remoteMessage => {
       const url = buildDeepLinkFromNotificationData(remoteMessage.data);
       if (typeof url === 'string') {
@@ -80,7 +76,7 @@ const linking = {
   },
 };
 
-function App(): React.JSX.Element {
+function App() {
   useEffect(() => {
     const requestUserPermission = async () => {
       await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
@@ -94,10 +90,9 @@ function App(): React.JSX.Element {
         const token = await messaging().getToken();
         console.log('FCM token:', token);
 
-        // Subscribe to the "refuges" topic
         try {
           await messaging().subscribeToTopic('refuges');
-          console.log('Subscribed to topic: refuges');
+          console.log('Subscribed to topic');
         } catch (error) {
           console.error('Error subscribing to topic:', error);
         }
