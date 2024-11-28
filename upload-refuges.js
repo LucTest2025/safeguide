@@ -1,5 +1,5 @@
 const db = require('./firebase-admin');
-const refuges = require('./refuges.json');
+const refuges = require('./refuge_fixed.json');
 
 const uploadRefuges = async () => {
   const batch = db.batch();

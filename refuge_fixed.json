@@ -11,7 +11,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "MosquÃ©e Agnala M'Kriny",
+    "nom": "Mosquée Agnala M'Kriny",
     "type": "Route",
     "commune": "Acoua",
     "altitude": 12,
@@ -55,7 +55,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Quartier BouÃ©ni",
+    "nom": "Quartier Bouéni",
     "type": "Rue",
     "commune": "Acoua",
     "altitude": 23,
@@ -99,7 +99,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Ruelle du cimetiÃ¨re Coconi",
+    "nom": "Ruelle du cimetière Coconi",
     "type": "Rue",
     "commune": "Chiconi",
     "altitude": 11,
@@ -154,7 +154,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Venelle des ainÃ©s",
+    "nom": "Venelle des ainés",
     "type": "Place",
     "commune": "Chiconi",
     "altitude": 12,
@@ -198,7 +198,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "LycÃ©e de Sada",
+    "nom": "Lycée de Sada",
     "type": "Parking",
     "commune": "Sada",
     "altitude": 39,
@@ -341,7 +341,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Ecole Ã©lÃ©mentaire Poroani 1",
+    "nom": "Ecole élémentaire Poroani 1",
     "type": "Parking",
     "commune": "Chirongui",
     "altitude": 11,
@@ -363,7 +363,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "AccÃ¨s au stade",
+    "nom": "Accès au stade",
     "type": "Route",
     "commune": "Chirongui",
     "altitude": 13,
@@ -374,7 +374,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Ecole Ã©lÃ©mentaire Chirongui  2",
+    "nom": "Ecole élémentaire Chirongui  2",
     "type": "Rue",
     "commune": "Chirongui",
     "altitude": 7,
@@ -385,7 +385,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "PÃ´le multimodal",
+    "nom": "Pôle multimodal",
     "type": "Rue",
     "commune": "Chirongui",
     "altitude": 8,
@@ -407,7 +407,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "DeuxiÃ¨me MosquÃ©e",
+    "nom": "Deuxième Mosquée",
     "type": "Route",
     "commune": "Chirongui",
     "altitude": 15,
@@ -418,7 +418,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "EntrÃ©e Ã©cole Souris Verte",
+    "nom": "Entrée école Souris Verte",
     "type": "Route",
     "commune": "Chirongui",
     "altitude": 23,
@@ -429,9 +429,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Rond-point de MajimouÃ©ni",
+    "nom": "Rond-point de Majimouéni",
     "type": "Route",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 17,
     "location": {
       "lat": -12.9258195380126,
@@ -442,7 +442,7 @@
   {
     "nom": "Ecole Moida Issa",
     "type": "Parking",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 15,
     "location": {
       "lat": -12.9251969931609,
@@ -453,7 +453,7 @@
   {
     "nom": "Sud Hagnoudrou",
     "type": "Sentier",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 10,
     "location": {
       "lat": -12.916101691647,
@@ -464,7 +464,7 @@
   {
     "nom": "Rue Ahmed Madi",
     "type": "Route",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 12,
     "location": {
       "lat": -12.9040619991736,
@@ -473,9 +473,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Carrefour Rassi BolÃ©",
+    "nom": "Carrefour Rassi Bolé",
     "type": "Rue",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 30,
     "location": {
       "lat": -12.9031186261209,
@@ -486,7 +486,7 @@
   {
     "nom": "Place du plateau",
     "type": "Place",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 26,
     "location": {
       "lat": -12.9080690246132,
@@ -497,7 +497,7 @@
   {
     "nom": "Terrain de foot",
     "type": "Parking",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 21,
     "location": {
       "lat": -12.9152797434267,
@@ -508,7 +508,7 @@
   {
     "nom": "MJC",
     "type": "Route",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 11,
     "location": {
       "lat": -12.9245900292396,
@@ -519,7 +519,7 @@
   {
     "nom": "Rue Mohamed Youssouf",
     "type": "Chemin",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 10,
     "location": {
       "lat": -12.9284059998486,
@@ -530,7 +530,7 @@
   {
     "nom": "Mbouanasta Mtiti",
     "type": "Route",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 9,
     "location": {
       "lat": -12.9376078628069,
@@ -541,7 +541,7 @@
   {
     "nom": "Boulevard Mogne Allaoui",
     "type": "Route",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 13,
     "location": {
       "lat": -12.9443528894623,
@@ -552,7 +552,7 @@
   {
     "nom": "Parking Ngouja",
     "type": "Terre-plein",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 29,
     "location": {
       "lat": -12.9608369992837,
@@ -563,7 +563,7 @@
   {
     "nom": "Place Msakouani",
     "type": "Place",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 10,
     "location": {
       "lat": -12.8442236988952,
@@ -572,9 +572,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Rue VÃ©tiver",
+    "nom": "Rue Vétiver",
     "type": "Rue",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 13,
     "location": {
       "lat": -12.8444142984438,
@@ -583,9 +583,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "CollÃ¨ge Zakia Madi",
+    "nom": "Collège Zakia Madi",
     "type": "Route",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 10,
     "location": {
       "lat": -12.846202449671,
@@ -596,7 +596,7 @@
   {
     "nom": "Placette Trico",
     "type": "Placette",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 27,
     "location": {
       "lat": -12.8453523414983,
@@ -605,9 +605,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Ironi BÃ©",
+    "nom": "Ironi Bé",
     "type": "Chemin",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 30,
     "location": {
       "lat": -12.8290311789967,
@@ -618,7 +618,7 @@
   {
     "nom": "Chemin de Mtsanga Iloni",
     "type": "Chemin",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 24,
     "location": {
       "lat": -12.8499576798454,
@@ -629,7 +629,7 @@
   {
     "nom": "Place ancien foyer",
     "type": "Place",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 42,
     "location": {
       "lat": -12.8675213285213,
@@ -638,9 +638,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "HandrÃ©",
+    "nom": "Handré",
     "type": "Terre-plein",
-    "commune": "DembÃ©ni",
+    "commune": "Dembéni",
     "altitude": 20,
     "location": {
       "lat": -12.8712479353237,
@@ -651,7 +651,7 @@
   {
     "nom": "Parking central",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 11,
     "location": {
       "lat": -12.8809943940499,
@@ -662,7 +662,7 @@
   {
     "nom": "Parking haut Hamouro",
     "type": "Terre-plein",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 13,
     "location": {
       "lat": -12.8831150298365,
@@ -671,9 +671,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "EntrÃ©e parking Mtsanga Sakouli",
+    "nom": "Entrée parking Mtsanga Sakouli",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 18,
     "location": {
       "lat": -12.8869662781664,
@@ -684,7 +684,7 @@
   {
     "nom": "Place publique de Nyambadao",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 15,
     "location": {
       "lat": -12.8933894885023,
@@ -695,7 +695,7 @@
   {
     "nom": "Nyambadao",
     "type": "Route",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 29,
     "location": {
       "lat": -12.8935220120693,
@@ -706,7 +706,7 @@
   {
     "nom": "Mro Mouhou",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 10,
     "location": {
       "lat": -12.8996444064956,
@@ -717,7 +717,7 @@
   {
     "nom": "Sentier Banano (STEP)",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 11,
     "location": {
       "lat": -12.9036221673929,
@@ -728,7 +728,7 @@
   {
     "nom": "Parking PMI",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 10,
     "location": {
       "lat": -12.9109358195639,
@@ -737,9 +737,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Carrefour Ã©cole Cavani",
+    "nom": "Carrefour école Cavani",
     "type": "Route",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 14,
     "location": {
       "lat": -12.9144342417048,
@@ -750,7 +750,7 @@
   {
     "nom": "Les hauts de musicale plage",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 12,
     "location": {
       "lat": -12.917737754246,
@@ -761,7 +761,7 @@
   {
     "nom": "Chemin Bambo nord",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 10,
     "location": {
       "lat": -12.927044030624,
@@ -770,9 +770,9 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Chemin rÃ©servoir Bambo",
+    "nom": "Chemin réservoir Bambo",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 12,
     "location": {
       "lat": -12.9290821140676,
@@ -781,9 +781,9 @@
     "accessible_pmr": false
   },
   {
-    "nom": "AccÃ¨s plage Mgnambani",
+    "nom": "Accès plage Mgnambani",
     "type": "Chemin",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 17,
     "location": {
       "lat": -12.9401521824289,
@@ -794,7 +794,7 @@
   {
     "nom": "Place de la PMI",
     "type": "Place",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 45,
     "location": {
       "lat": -12.9623174086551,
@@ -805,7 +805,7 @@
   {
     "nom": "Ecole maternelle de Dapani",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 13,
     "location": {
       "lat": -12.9705544302388,
@@ -814,9 +814,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "EntrÃ©e de Mbouini",
+    "nom": "Entrée de Mbouini",
     "type": "Route",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 15,
     "location": {
       "lat": -12.9858828737729,
@@ -825,9 +825,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Passi KÃ©li",
+    "nom": "Passi Kéli",
     "type": "Route",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 21,
     "location": {
       "lat": -12.9854562330901,
@@ -838,7 +838,7 @@
   {
     "nom": "Stade",
     "type": "Terre-plein",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 9,
     "location": {
       "lat": -12.9777297694909,
@@ -849,7 +849,7 @@
   {
     "nom": "Rue de la belle-vue",
     "type": "Rue",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 19,
     "location": {
       "lat": -12.9647036225432,
@@ -858,9 +858,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "D4 Kani NÃ©",
+    "nom": "D4 Kani Né",
     "type": "Route",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 11,
     "location": {
       "lat": -12.9610279393205,
@@ -869,9 +869,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "FarÃ© Cavani",
+    "nom": "Faré Cavani",
     "type": "Carrefour",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 11,
     "location": {
       "lat": -12.954856494856,
@@ -882,7 +882,7 @@
   {
     "nom": "Ancien dispensaire - PMI",
     "type": "Route",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 19,
     "location": {
       "lat": -12.957707062808,
@@ -891,9 +891,9 @@
     "accessible_pmr": true
   },
   {
-    "nom": "MosquÃ©e du Vendredi",
+    "nom": "Mosquée du Vendredi",
     "type": "Rue",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 14,
     "location": {
       "lat": -12.9563162486613,
@@ -902,7 +902,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Carrefour DzoumonyÃ©",
+    "nom": "Carrefour Dzoumonyé",
     "type": "Route",
     "commune": "Bandraboua",
     "altitude": 11,
@@ -946,7 +946,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Bouyouni MitsÃ©ni",
+    "nom": "Bouyouni Mitséni",
     "type": "Ruelle",
     "commune": "Bandraboua",
     "altitude": 12,
@@ -957,7 +957,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Gouena LahÃ©",
+    "nom": "Gouena Lahé",
     "type": "Chemin",
     "commune": "Koungou",
     "altitude": 9,
@@ -968,7 +968,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "LycÃ©e du bÃ¢timent",
+    "nom": "Lycée du bâtiment",
     "type": "Chemin",
     "commune": "Koungou",
     "altitude": 12,
@@ -1023,7 +1023,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "EntrÃ©e Lafarge",
+    "nom": "Entrée Lafarge",
     "type": "Parking",
     "commune": "Koungou",
     "altitude": 24,
@@ -1034,7 +1034,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Zone VallÃ©e 3",
+    "nom": "Zone Vallée 3",
     "type": "Route",
     "commune": "Koungou",
     "altitude": 15,
@@ -1067,7 +1067,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "MgouÃ©dajou",
+    "nom": "Mgouédajou",
     "type": "Chemin",
     "commune": "Bandraboua",
     "altitude": 11,
@@ -1078,7 +1078,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Ecole MvwÃ©rani",
+    "nom": "Ecole Mvwérani",
     "type": "Parking",
     "commune": "Bandraboua",
     "altitude": 20,
@@ -1100,7 +1100,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "KadjifoutchÃ©ni",
+    "nom": "Kadjifoutchéni",
     "type": "Chemin",
     "commune": "Bandraboua",
     "altitude": 10,
@@ -1210,7 +1210,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "PolÃ©",
+    "nom": "Polé",
     "type": "Route",
     "commune": "Dzaoudzi",
     "altitude": 20,
@@ -1232,7 +1232,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Stade du lycÃ©e",
+    "nom": "Stade du lycée",
     "type": "Stade",
     "commune": "Pamandzi",
     "altitude": 37,
@@ -1254,7 +1254,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "HÃ´pital",
+    "nom": "Hôpital",
     "type": "Route",
     "commune": "Pamandzi",
     "altitude": 11,
@@ -1276,7 +1276,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Maternelle Pamandzi 7 MangafoutÃ©",
+    "nom": "Maternelle Pamandzi 7 Mangafouté",
     "type": "Parking",
     "commune": "Pamandzi",
     "altitude": 18,
@@ -1408,7 +1408,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Parking Ã©cole maternelle",
+    "nom": "Parking école maternelle",
     "type": "Parking",
     "commune": "Mtsamboro",
     "altitude": 12,
@@ -1419,7 +1419,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place MosquÃ©e Rifanyi",
+    "nom": "Place Mosquée Rifanyi",
     "type": "Parking",
     "commune": "Mtsamboro",
     "altitude": 18,
@@ -1431,7 +1431,7 @@
   },
   {
     "nom": "Shell",
-    "type": "FarÃ©",
+    "type": "Faré",
     "commune": "Mtsamboro",
     "altitude": 18,
     "location": {
@@ -1441,7 +1441,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "MosquÃ©e",
+    "nom": "Mosquée",
     "type": "Rue",
     "commune": "Mtsamboro",
     "altitude": 24,
@@ -1529,7 +1529,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Gaza KawÃ©ni",
+    "nom": "Gaza Kawéni",
     "type": "Route",
     "commune": "Mamoudzou",
     "altitude": 10,
@@ -1540,7 +1540,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "MosquÃ©e du vendredi",
+    "nom": "Mosquée du vendredi",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 10,
@@ -1551,8 +1551,8 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Le sÃ©nat",
-    "type": "FarÃ©",
+    "nom": "Le sénat",
+    "type": "Faré",
     "commune": "Mamoudzou",
     "altitude": 10,
     "location": {
@@ -1562,7 +1562,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "MJC KawÃ©ni",
+    "nom": "MJC Kawéni",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 11,
@@ -1573,7 +1573,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "MosquÃ©e des indiens",
+    "nom": "Mosquée des indiens",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 13,
@@ -1595,7 +1595,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Parking collÃ¨ge K2",
+    "nom": "Parking collège K2",
     "type": "Parking",
     "commune": "Mamoudzou",
     "altitude": 8,
@@ -1617,7 +1617,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "EntrÃ©e Jumbo",
+    "nom": "Entrée Jumbo",
     "type": "Terre-plein",
     "commune": "Koungou",
     "altitude": 18,
@@ -1629,7 +1629,7 @@
   },
   {
     "nom": "Petit banga",
-    "type": "FarÃ©",
+    "type": "Faré",
     "commune": "Koungou",
     "altitude": 14,
     "location": {
@@ -1639,7 +1639,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Parking Ã©cole maternelle Majicavo-Lamir",
+    "nom": "Parking école maternelle Majicavo-Lamir",
     "type": "Parking",
     "commune": "Koungou",
     "altitude": 24,
@@ -1650,7 +1650,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Rue collÃ¨ge Lamir",
+    "nom": "Rue collège Lamir",
     "type": "Route",
     "commune": "Koungou",
     "altitude": 11,
@@ -1683,7 +1683,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place des pÃªcheurs",
+    "nom": "Place des pêcheurs",
     "type": "Route",
     "commune": "Koungou",
     "altitude": 10,
@@ -1716,7 +1716,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "PachÃ©ni",
+    "nom": "Pachéni",
     "type": "Parking",
     "commune": "Koungou",
     "altitude": 11,
@@ -1749,7 +1749,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Cap OcÃ©ania",
+    "nom": "Cap Océania",
     "type": "Terre-plein",
     "commune": "Koungou",
     "altitude": 28,
@@ -1760,7 +1760,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "CollÃ¨ge",
+    "nom": "Collège",
     "type": "Parking",
     "commune": "Koungou",
     "altitude": 29,
@@ -1772,7 +1772,7 @@
   },
   {
     "nom": "Pharmacie des makis",
-    "type": "FarÃ©",
+    "type": "Faré",
     "commune": "Koungou",
     "altitude": 9,
     "location": {
@@ -1782,7 +1782,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Chemin de Mtsanga TrÃ©vani",
+    "nom": "Chemin de Mtsanga Trévani",
     "type": "Terre-plein",
     "commune": "Koungou",
     "altitude": 19,
@@ -1826,7 +1826,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "KwalÃ© - Les hauts du collÃ¨ge",
+    "nom": "Kwalé - Les hauts du collège",
     "type": "Route",
     "commune": "Mamoudzou",
     "altitude": 13,
@@ -1859,7 +1859,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Trotro NdjÃ©ou",
+    "nom": "Trotro Ndjéou",
     "type": "Sentier",
     "commune": "Mamoudzou",
     "altitude": 11,
@@ -1870,7 +1870,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Carrefour Ã©cole Mhogoni",
+    "nom": "Carrefour école Mhogoni",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 13,
@@ -1881,7 +1881,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Parking cimetiÃ¨re",
+    "nom": "Parking cimetière",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 10,
@@ -1925,7 +1925,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Carrefour Ã©cole Bonovo",
+    "nom": "Carrefour école Bonovo",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 11,
@@ -1936,7 +1936,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place de la grande mosquÃ©e du vendredi",
+    "nom": "Place de la grande mosquée du vendredi",
     "type": "Place",
     "commune": "Mamoudzou",
     "altitude": 7,
@@ -1958,7 +1958,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place de l'ancien marchÃ©",
+    "nom": "Place de l'ancien marché",
     "type": "Place",
     "commune": "Mamoudzou",
     "altitude": 13,
@@ -1981,7 +1981,7 @@
   },
   {
     "nom": "Place du tombeau du Sultan Adrian Souli",
-    "type": "FarÃ©",
+    "type": "Faré",
     "commune": "Mamoudzou",
     "altitude": 22,
     "location": {
@@ -2013,7 +2013,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place de DoukabÃ© MgÃ©vatana",
+    "nom": "Place de Doukabé Mgévatana",
     "type": "Rue",
     "commune": "Mamoudzou",
     "altitude": 11,
@@ -2035,8 +2035,8 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Place MtsapÃ©roise",
-    "type": "FarÃ©",
+    "nom": "Place Mtsapéroise",
+    "type": "Faré",
     "commune": "Mamoudzou",
     "altitude": 21,
     "location": {
@@ -2057,9 +2057,9 @@
     "accessible_pmr": false
   },
   {
-    "nom": "Sortie MronabÃ©ja",
+    "nom": "Sortie Mronabéja",
     "type": "Carrefour",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 31,
     "location": {
       "lat": -12.9687862971869,
@@ -2070,7 +2070,7 @@
   {
     "nom": "Parking",
     "type": "Parking",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 18,
     "location": {
       "lat": -12.9868033161133,
@@ -2081,7 +2081,7 @@
   {
     "nom": "Parking Bandrakouni",
     "type": "Parking",
-    "commune": "Kani-KÃ©li",
+    "commune": "Kani-Kéli",
     "altitude": 20,
     "location": {
       "lat": -12.9751493584006,
@@ -2101,7 +2101,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "AccÃ¨s BollorÃ©",
+    "nom": "Accès Bolloré",
     "type": "Route",
     "commune": "Koungou",
     "altitude": 16,
@@ -2167,7 +2167,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Rond-point de la MosquÃ©e",
+    "nom": "Rond-point de la Mosquée",
     "type": "Rond-point",
     "commune": "Tsingoni",
     "altitude": 75,
@@ -2180,7 +2180,7 @@
   {
     "nom": "Place Madrassa",
     "type": "Place",
-    "commune": "BouÃ©ni",
+    "commune": "Bouéni",
     "altitude": 35,
     "location": {
       "lat": -12.9001520403068,
@@ -2224,7 +2224,7 @@
   {
     "nom": "Parking Sud Sakouli",
     "type": "Parking",
-    "commune": "BandrÃ©lÃ©",
+    "commune": "Bandrélé",
     "altitude": 11,
     "location": {
       "lat": -12.8894356033297,
@@ -2255,7 +2255,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "DÃ©part sentier de Soulou",
+    "nom": "Départ sentier de Soulou",
     "type": "Sentier",
     "commune": "Tsingoni",
     "altitude": 46,
@@ -2288,7 +2288,7 @@
     "accessible_pmr": false
   },
   {
-    "nom": "MosquÃ©e Djaoula",
+    "nom": "Mosquée Djaoula",
     "type": "Terre-plein",
     "commune": "M'Tsangamouji",
     "altitude": 11,
@@ -2321,7 +2321,7 @@
     "accessible_pmr": true
   },
   {
-    "nom": "Rond-point ChimbÃ© Trotto Mani",
+    "nom": "Rond-point Chimbé Trotto Mani",
     "type": "Place",
     "commune": "M'Tsangamouji",
     "altitude": 30,
