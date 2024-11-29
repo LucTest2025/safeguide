@@ -1,29 +1,29 @@
 {
-    "project_info": {
-      "project_number": "703185673088",
-      "project_id": "safeguide-cdf2f",
-      "storage_bucket": "safeguide-cdf2f.firebasestorage.app"
-    },
-    "client": [
-      {
-        "client_info": {
-          "mobilesdk_app_id": "1:703185673088:android:25c97cbd22e8afa365ff65",
-          "android_client_info": {
-            "package_name": "com.safeguide.app"
-          }
-        },
-        "oauth_client": [],
-        "api_key": [
-          {
-            "current_key": "AIzaSyAgdPvT_b8Db1FYnvfwLNXgER9NCASeuEw"
-          }
-        ],
-        "services": {
-          "appinvite_service": {
-            "other_platform_oauth_client": []
-          }
+  "project_info": {
+    "project_number": "613410173558",
+    "project_id": "safeguide-5408e",
+    "storage_bucket": "safeguide-5408e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613410173558:android:362fe0abb5c2d6974a6557",
+        "android_client_info": {
+          "package_name": "com.safeguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-rUqQHXShWCpl_dchf99vYSawvMizBsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
-    ],
-    "configuration_version": "1"
-  }
+    }
+  ],
+  "configuration_version": "1"
+}
