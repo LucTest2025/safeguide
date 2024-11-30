@@ -1,7 +1,10 @@
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Configuration Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyA-rUqQHXShWCpl_dchf99vYSawvMizBsk",
   authDomain: "safeguide-5408e.firebaseapp.com",
@@ -11,9 +14,15 @@ const firebaseConfig = {
   appId: "1:613410173558:android:362fe0abb5c2d6974a6557",
 };
 
+// Initialisation de l'application Firebase
 const app = initializeApp(firebaseConfig);
+
+// Configuration de Firebase Authentication avec persistance
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
-export { auth };
+// Initialisation de Firestore
+const firestore = getFirestore(app);
+
+export { auth, firestore };
