@@ -1,85 +1,21 @@
 import React, { useEffect } from 'react';
-import { Alert, PermissionsAndroid, ActivityIndicator } from 'react-native';
+import { Alert, PermissionsAndroid, ActivityIndicator, Linking } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import { Linking } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './components/Home';
-import Setting from './components/Setting';
+import SplashScreen from './components/SplashScreen';
+import LoginScreen from './components/LoginScreen';
 
 const Stack = createStackNavigator();
-const NAVIGATION_IDS = ["home", "settings"];
-
-function buildDeepLinkFromNotificationData(data) {
-  const navigationId = data?.navigationId;
-  if (!NAVIGATION_IDS.includes(navigationId)) {
-    console.warn('Unverified navigationId', navigationId);
-    return null;
-  }
-  if (navigationId === "home") {
-    return 'myapp://home';
-  }
-  if (navigationId === "settings") {
-    return 'myapp://settings';
-  }
-  return null;
-}
-
-const linking = {
-  prefixes: ['myapp://'],
-  config: {
-    screens: {
-      Home: "home",
-      Settings: "settings",
-    },
-  },
-  async getInitialURL() {
-    const url = await Linking.getInitialURL();
-    if (typeof url === 'string') {
-      return url;
-    }
-    const message = await messaging().getInitialNotification();
-    const deeplinkURL = buildDeepLinkFromNotificationData(message?.data);
-    if (typeof deeplinkURL === 'string') {
-      return deeplinkURL;
-    }
-  },
-  subscribe(listener) {
-    const onReceiveURL = ({ url }) => listener(url);
-
-    const linkingSubscription = Linking.addEventListener('url', onReceiveURL);
-
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
-    });
-
-    const foreground = messaging().onMessage(async remoteMessage => {
-      console.log('A new FCM message arrived!', remoteMessage);
-      Alert.alert(
-        remoteMessage.notification?.title || 'Notification',
-        remoteMessage.notification?.body || 'No message body'
-      );
-    });
-
-    const unsubscribe = messaging().onNotificationOpenedApp(remoteMessage => {
-      const url = buildDeepLinkFromNotificationData(remoteMessage.data);
-      if (typeof url === 'string') {
-        listener(url);
-      }
-    });
-
-    return () => {
-      linkingSubscription.remove();
-      unsubscribe();
-      foreground();
-    };
-  },
-};
 
 function App() {
   useEffect(() => {
     const requestUserPermission = async () => {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+      if (granted) {
+        console.log('Notification permission granted.');
+      }
+
       const authStatus = await messaging().requestPermission();
       const enabled =
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -103,10 +39,18 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer linking={linking} fallback={<ActivityIndicator animating />}>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Settings" component={Setting} />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Splash">
+        <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
