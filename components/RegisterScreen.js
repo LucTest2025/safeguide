@@ -15,9 +15,9 @@ import {
 } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, firestore } from '../redux/firebaseConfig'; // Configuration Firebase
-import Icon from 'react-native-vector-icons/FontAwesome'; // Pour les icônes
-import ImagePicker from 'react-native-image-picker'; // Pour la sélection d'image
+import { auth, firestore } from '../redux/firebaseConfig'; 
+import Icon from 'react-native-vector-icons/FontAwesome'; 
+import ImagePicker from 'react-native-image-picker'; 
 
 const { width, height } = Dimensions.get('window');
 

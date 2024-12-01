@@ -33,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert('Succès', 'Connexion réussie !');
-      navigation.replace('MainApp');
+      navigation.replace('Home');
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.message);
       Alert.alert('Erreur', error.message || 'Erreur inconnue.');

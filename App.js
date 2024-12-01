@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './components/SplashScreen';
 import LoginScreen from './components/LoginScreen';
-import RegisterScreen from './components/RegisterScreen'; 
+import RegisterScreen from './components/RegisterScreen';
+import HomeScreen from './components/HomeScreen'; // Import de HomeScreen
 
 const Stack = createStackNavigator();
 
@@ -54,7 +55,12 @@ function App() {
         />
         <Stack.Screen
           name="Register"
-          component={RegisterScreen} // Ajout de RegisterScreen
+          component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen} // Ajout de HomeScreen
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
