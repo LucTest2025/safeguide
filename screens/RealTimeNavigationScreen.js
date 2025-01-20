@@ -7,7 +7,10 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  FlatList,
+  Switch,
 } from 'react-native';
+import * as Speech from 'expo-speech';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { GOOGLE_MAPS_API_KEY } from '@env';
 
@@ -28,6 +31,8 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
   const [steps, setSteps] = useState([]);
   const [duration, setDuration] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const [currentAudioStep, setCurrentAudioStep] = useState(null);
   const mapViewRef = useRef(null);
 
   // Fonction pour formater la durée
@@ -52,6 +57,16 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
     }
   }, [mockLocation, destination]);
 
+  useEffect(() => {
+    if (isAudioEnabled && steps.length > 0) {
+      const nextStep = steps[0]?.text;
+      if (currentAudioStep !== nextStep) {
+        playAudio(nextStep);
+        setCurrentAudioStep(nextStep);
+      }
+    }
+  }, [steps, isAudioEnabled, currentAudioStep]);    
+
   const loadRoute = async (origin, destinationCoords) => {
     try {
       const response = await fetch(
@@ -73,12 +88,40 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
       setDuration(formatDuration(leg.duration.text)); // Formatage de la durée
 
       const instructions = leg.steps.map((step) => ({
-        text: step.html_instructions.replace(/<[^>]*>/g, ''),
+        text: step.html_instructions
+          .replace(/<[^>]*>/g, '') // Supprime les balises HTML
+          //.replace(/\s+/g, ' ') // Réduit les espaces multiples
+          .trim(), // Supprime les espaces en trop
         endLocation: step.end_location,
         distance: step.distance.text,
         duration: step.duration.text,
       }));
-      setSteps(instructions);
+
+      // Filtrer en favorisant la dernière occurrence
+      const filteredInstructions = instructions.reduce((acc, instruction) => {
+        const duplicateIndex = acc.findIndex((prevInstruction) => {
+          return (
+            prevInstruction.text === instruction.text ||
+            Math.abs(
+              parseFloat(instruction.distance.replace(',', '.')) -
+              parseFloat(prevInstruction.distance.replace(',', '.'))
+            ) < 0.1 // Tolérance pour les distances similaires
+        );
+      });
+
+      // Si un doublon est trouvé, remplacez-le par la nouvelle instruction
+      if (duplicateIndex !== -1) {
+        acc[duplicateIndex] = instruction;
+      } else {
+        acc.push(instruction); // Sinon, ajoutez l'instruction au tableau final
+      }
+
+      return acc;
+      }, []);
+
+      setSteps(filteredInstructions);
+      //setSteps(instructions);
+      
     } catch (error) {
       console.error('Erreur lors du chargement de l’itinéraire :', error);
       Alert.alert('Erreur', 'Une erreur est survenue lors du chargement de l’itinéraire.');
@@ -86,6 +129,27 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const updateInstructions = () => {
+      setSteps((prevSteps) => {
+        const userPosition = mockLocation; // Remplace par la localisation réelle
+        const nextStepIndex = prevSteps.findIndex(
+          (step) =>
+            step.endLocation.latitude > userPosition.latitude &&
+            step.endLocation.longitude > userPosition.longitude
+        );
+  
+        if (nextStepIndex !== -1) {
+          return prevSteps.slice(nextStepIndex); // Supprime les étapes parcourues
+        }
+        return prevSteps;
+      });
+    };
+  
+    const interval = setInterval(updateInstructions, 3000); // Mettre à jour toutes les 3 secondes
+    return () => clearInterval(interval);
+  }, [mockLocation]);  
 
   const decodePolyline = (t) => {
     let points = [];
@@ -120,6 +184,14 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
 
     return points;
   };
+
+  const playAudio = (text) => {
+    Speech.speak(text, {
+      language: 'fr-FR',
+      pitch: 1.0,
+      rate: 1.0,
+    });
+  };  
 
   if (loading) {
     return (
@@ -161,9 +233,17 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
 
       {/* Instructions et durée */}
       <View style={styles.instructionBox}>
-        <Text style={styles.instructionText}>
-          {steps[0]?.text || 'Aucune instruction disponible'}
-        </Text>
+      <FlatList
+        data={steps}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={{ marginVertical: 5 }}>
+            <Text style={{ color: '#FFF' }}>{item.text}</Text>
+            <Text style={{ color: '#CCC' }}>Distance : {item.distance}</Text>
+           </View>
+         )}
+      />
+
       </View>
 
       {/* Panneau en bas */}
@@ -193,6 +273,24 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
           <Text style={styles.recenterText}>Recentrer</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Contrôles audio */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+        <Text style={{ color: '#FFF', marginRight: 10 }}>Audio :</Text>
+        <Switch
+          value={isAudioEnabled}
+          onValueChange={() => {
+            setIsAudioEnabled((prev) => {
+              if (!prev) {
+                Speech.stop(); // Arrête la lecture en cours
+                setCurrentAudioStep(null); // Réinitialise l'état audio
+              }
+              return !prev;
+            });
+          }}
+        />
+
+      </View>
     </View>
   );
 };
@@ -216,7 +314,7 @@ const styles = StyleSheet.create({
     top: height * 0.07,
     left: width * 0.05,
     right: width * 0.05,
-    backgroundColor: '#1E1E4A',
+    backgroundColor: 'rgba(30, 30, 74, 0.8)',
     borderRadius: 10,
     padding: 15,
     shadowColor: '#000',
