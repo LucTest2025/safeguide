@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,11 @@ import {
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAccessibleRefuges } from '../redux/actions/refugeActions';
-import { FontAwesome } from '@expo/vector-icons';
+} from "react-native";
+import * as Location from "expo-location";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAccessibleRefuges } from "../redux/actions/refugeActions";
+import { FontAwesome } from "@expo/vector-icons";
 
 const RefugeListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -18,19 +19,61 @@ const RefugeListScreen = ({ navigation, route }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const searchQuery = route.params?.searchQuery || ''; // Récupérer le texte de recherche
+  const searchQuery = route.params?.searchQuery || ""; // Récupérer le texte de recherche
 
   useEffect(() => {
-    // Position fictive de l'utilisateur
-    const fixedLocation = {
-      lat: -12.7806, // Latitude de Mamoudzou
-      lng: 45.2278, // Longitude de Mamoudzou
-    };
+    (async () => {
+      // Demander la permission d'accéder à la localisation
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission refusée",
+          "L’application a besoin de la permission de localisation pour fonctionner."
+        );
+        return;
+      }
 
-    setUserLocation(fixedLocation); // Définir la position fixe
-    dispatch(fetchAccessibleRefuges(fixedLocation)); // Charger les refuges
-    setLoading(false);
+      // Obtenir la position actuelle de l'utilisateur
+      let location = await Location.getCurrentPositionAsync({});
+      const userLocation = {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude,
+      };
+
+      setUserLocation(userLocation); // Définir la position réelle
+      dispatch(fetchAccessibleRefuges(userLocation)); // Charger les refuges
+      setLoading(false);
+
+      // Mettre à jour la position en temps réel
+      const locationSubscription = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 5000, // Mettre à jour toutes les 5 secondes
+          distanceInterval: 10, // Mettre à jour tous les 10 mètres
+        },
+        (newLocation) => {
+          const updatedLocation = {
+            lat: newLocation.coords.latitude,
+            lng: newLocation.coords.longitude,
+          };
+          setUserLocation(updatedLocation);
+        }
+      );
+
+      // Nettoyer l'abonnement lors du démontage du composant
+      return () => {
+        if (locationSubscription) {
+          locationSubscription.remove();
+        }
+      };
+    })();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userLocation) {
+      dispatch(fetchAccessibleRefuges(userLocation)); // Charger les refuges avec la position réelle
+    }
+  }, [dispatch, userLocation]);
 
   useEffect(() => {
     // Appliquer le filtrage des refuges si une recherche est effectuée
@@ -61,6 +104,15 @@ const RefugeListScreen = ({ navigation, route }) => {
     );
   }
 
+  if (!userLocation) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#1E1E4A" />
+        <Text>Chargement de la position...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {/* Bouton Retour */}
@@ -87,14 +139,14 @@ const RefugeListScreen = ({ navigation, route }) => {
             <TouchableOpacity
               style={styles.navigateButton}
               onPress={() =>
-                navigation.navigate('RealTimeNavigation', {
+                navigation.navigate("RealTimeNavigation", {
                   destination: {
                     latitude: item.location.lat,
                     longitude: item.location.lng,
                   },
                   destinationDetails: item.nom,
-                  currentLocation: userLocation,
-                  distanceText: item.distanceText, // Transmettre la distance au composant de navigation
+                  currentLocation: userLocation, // Utiliser la position réelle
+                  distanceText: item.distanceText,
                 })
               }
             >
@@ -107,8 +159,8 @@ const RefugeListScreen = ({ navigation, route }) => {
         ListEmptyComponent={
           <Text style={styles.noResultsText}>
             {searchQuery
-              ? 'Aucun refuge correspondant à votre recherche.'
-              : 'Aucun refuge accessible trouvé.'}
+              ? "Aucun refuge correspondant à votre recherche."
+              : "Aucun refuge accessible trouvé."}
           </Text>
         }
       />
@@ -120,67 +172,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFF',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#1E1E4A',
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 16,
   },
   backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1E1E4A',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1E1E4A",
     padding: 10,
     borderRadius: 5,
     marginBottom: 32,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: 40,
   },
   backButtonText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 16,
     marginLeft: 8,
   },
   refugeItem: {
-    backgroundColor: '#f1f1f1',
+    backgroundColor: "#f1f1f1",
     padding: 16,
     marginBottom: 8,
     borderRadius: 8,
   },
   refugeName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   refugeDetails: {
     fontSize: 14,
-    color: '#555',
+    color: "#555",
   },
   navigateButton: {
     marginTop: 10,
-    backgroundColor: '#1E1E4A',
+    backgroundColor: "#1E1E4A",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
   },
   navigateButtonText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   noResultsText: {
-    textAlign: 'center',
-    color: '#555',
+    textAlign: "center",
+    color: "#555",
     fontSize: 16,
     marginTop: 20,
   },

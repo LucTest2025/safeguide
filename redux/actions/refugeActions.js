@@ -12,7 +12,7 @@ export const fetchAccessibleRefuges = (userLocation) => async (dispatch) => {
       ...doc.data(),
     }));
 
-    // Calcul des distances entre la position fictive et chaque refuge
+    // Calcul des distances entre la position et chaque refuge
     const calculateDistanceInMeters = (lat1, lon1, lat2, lon2) => {
       const R = 6371000; // Rayon de la Terre en mètres
       const toRad = (value) => (value * Math.PI) / 180;
