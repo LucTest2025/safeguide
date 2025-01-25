@@ -73,30 +73,35 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
         `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destinationCoords.latitude},${destinationCoords.longitude}&mode=walking&language=fr&key=${GOOGLE_MAPS_API_KEY}`
       );
       const data = await response.json();
-
+  
       if (data.status !== 'OK') {
         Alert.alert('Erreur', 'Impossible de trouver un itinéraire.');
         return;
       }
-
+  
       const route = data.routes[0];
       const points = decodePolyline(route.overview_polyline.points);
-
+  
       setRouteCoords(points);
-
+  
       const leg = route.legs[0];
       setDuration(formatDuration(leg.duration.text)); // Formatage de la durée
-
-      const instructions = leg.steps.map((step) => ({
-        text: step.html_instructions
-          .replace(/<[^>]*>/g, '') // Supprime les balises HTML
-          //.replace(/\s+/g, ' ') // Réduit les espaces multiples
-          .trim(), // Supprime les espaces en trop
-        endLocation: step.end_location,
-        distance: step.distance.text,
-        duration: step.duration.text,
-      }));
-
+  
+      const instructions = leg.steps.map((step) => {
+        // Convertir la distance en mètres
+        const distanceInMeters = step.distance.value; // La distance en mètres est disponible dans `value`
+        const distanceText = `${distanceInMeters} m`; // Afficher en mètres
+  
+        return {
+          text: step.html_instructions
+            .replace(/<[^>]*>/g, '') // Supprime les balises HTML
+            .trim(), // Supprime les espaces en trop
+          endLocation: step.end_location,
+          distance: distanceText, // Utiliser la distance en mètres
+          duration: step.duration.text,
+        };
+      });
+  
       // Filtrer en favorisant la dernière occurrence
       const filteredInstructions = instructions.reduce((acc, instruction) => {
         const duplicateIndex = acc.findIndex((prevInstruction) => {
@@ -106,22 +111,20 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
               parseFloat(instruction.distance.replace(',', '.')) -
               parseFloat(prevInstruction.distance.replace(',', '.'))
             ) < 0.1 // Tolérance pour les distances similaires
-        );
-      });
-
-      // Si un doublon est trouvé, remplacez-le par la nouvelle instruction
-      if (duplicateIndex !== -1) {
-        acc[duplicateIndex] = instruction;
-      } else {
-        acc.push(instruction); // Sinon, ajoutez l'instruction au tableau final
-      }
-
-      return acc;
+          );
+        });
+  
+        // Si un doublon est trouvé, remplacez-le par la nouvelle instruction
+        if (duplicateIndex !== -1) {
+          acc[duplicateIndex] = instruction;
+        } else {
+          acc.push(instruction); // Sinon, ajoutez l'instruction au tableau final
+        }
+  
+        return acc;
       }, []);
-
+  
       setSteps(filteredInstructions);
-      //setSteps(instructions);
-      
     } catch (error) {
       console.error('Erreur lors du chargement de l’itinéraire :', error);
       Alert.alert('Erreur', 'Une erreur est survenue lors du chargement de l’itinéraire.');
@@ -141,8 +144,15 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
         );
   
         if (nextStepIndex !== -1) {
-          return prevSteps.slice(nextStepIndex); // Supprime les étapes parcourues
+          return [prevSteps[nextStepIndex]]; // Garder uniquement l'étape en cours
         }
+  
+        // Si l'utilisateur a terminé toutes les étapes
+        if (prevSteps.length === 0) {
+          Alert.alert("Arrivé à destination", "Vous êtes arrivé à destination !");
+          return [];
+        }
+  
         return prevSteps;
       });
     };
@@ -202,6 +212,14 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
     );
   }
 
+  if (steps.length === 0 && !loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Vous êtes arrivé à destination !</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <MapView ref={mapViewRef} style={styles.map} showsUserLocation>
@@ -233,18 +251,14 @@ const RealTimeNavigationScreen = ({ route, navigation }) => {
 
       {/* Instructions et durée */}
       <View style={styles.instructionBox}>
-      <FlatList
-        data={steps}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
+        {steps.length > 0 && (
           <View style={{ marginVertical: 5 }}>
-            <Text style={{ color: '#FFF' }}>{item.text}</Text>
-            <Text style={{ color: '#CCC' }}>Distance : {item.distance}</Text>
-           </View>
-         )}
-      />
-
+            <Text style={{ color: '#FFF' }}>{steps[0].text}</Text>
+            <Text style={{ color: '#CCC' }}>Distance : {steps[0].distance}</Text>
+          </View>
+        )}
       </View>
+      
 
       {/* Panneau en bas */}
       <View style={styles.bottomPanel}>
