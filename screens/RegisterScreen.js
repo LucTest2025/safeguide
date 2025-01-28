@@ -16,10 +16,9 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
-import { Picker } from '@react-native-picker/picker'; // Picker compatible avec Expo
+import { Picker } from '@react-native-picker/picker';
 import { signupUser } from '../redux/actions/authActions';
 
-// Dimensions de l'écran
 const { width, height } = Dimensions.get('window');
 
 const RegisterScreen = ({ navigation }) => {
@@ -27,7 +26,7 @@ const RegisterScreen = ({ navigation }) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // État pour gérer la visibilité du mot de passe
+  const [showPassword, setShowPassword] = useState(false);
   const [handicap, setHandicap] = useState('');
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -63,6 +62,11 @@ const RegisterScreen = ({ navigation }) => {
   const handleSignup = async () => {
     if (!firstName || !lastName || !email || !password || !handicap) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Erreur', 'Le mot de passe doit contenir au moins 6 caractères.');
       return;
     }
 
@@ -129,7 +133,7 @@ const RegisterScreen = ({ navigation }) => {
               style={[styles.input, styles.passwordInput]}
               placeholder="Password"
               placeholderTextColor="#A1A1A1"
-              secureTextEntry={!showPassword} // Afficher ou masquer le mot de passe
+              secureTextEntry={!showPassword}
               value={password}
               onChangeText={setPassword}
             />

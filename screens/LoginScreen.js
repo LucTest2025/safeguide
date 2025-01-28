@@ -25,18 +25,39 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
+      console.log('Champs vides détectés.');
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
       return;
     }
 
+    if (password.length < 6) {
+      console.log('Mot de passe trop court.');
+      Alert.alert('Erreur', 'Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+
     setLoading(true);
+
     try {
       await dispatch(loginUser(email, password));
+      console.log('Connexion réussie pour l’email:', email);
       Alert.alert('Succès', 'Connexion réussie !');
       navigation.replace('MainApp');
     } catch (error) {
       console.error('Erreur lors de la connexion:', error.message);
-      Alert.alert('Erreur', error.message || 'Erreur inconnue.');
+
+      if (error.message.includes('auth/wrong-password')) {
+        console.log('Mot de passe incorrect.');
+        Alert.alert('Erreur', 'Mot de passe incorrect.');
+      } else if (error.message.includes('auth/user-not-found')) {
+        console.log('Utilisateur non trouvé pour l’email:', email);
+        Alert.alert('Erreur', 'Aucun compte trouvé avec cet email.');
+      } else if (error.message.includes('auth/invalid-email')) {
+        console.log('Format d’email invalide:', email);
+        Alert.alert('Erreur', 'Veuillez entrer un email valide.');
+      } else {
+        Alert.alert('Erreur', error.message || 'Une erreur inconnue est survenue.');
+      }
     } finally {
       setLoading(false);
     }
@@ -230,6 +251,5 @@ const styles = StyleSheet.create({
     fontSize: height * 0.018,
   },
 });
-
 
 export default LoginScreen;
