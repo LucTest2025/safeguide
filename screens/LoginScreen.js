@@ -25,36 +25,25 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      console.log('Champs vides détectés.');
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
-      return;
-    }
-
-    if (password.length < 6) {
-      console.log('Mot de passe trop court.');
-      Alert.alert('Erreur', 'Le mot de passe doit contenir au moins 6 caractères.');
       return;
     }
 
     setLoading(true);
 
     try {
+      // Appel de l'action loginUser définie dans votre Redux
       await dispatch(loginUser(email, password));
-      console.log('Connexion réussie pour l’email:', email);
       Alert.alert('Succès', 'Connexion réussie !');
       navigation.replace('MainApp');
     } catch (error) {
-      console.error('Erreur lors de la connexion:', error.message);
-
-      if (error.message.includes('auth/wrong-password')) {
-        console.log('Mot de passe incorrect.');
-        Alert.alert('Erreur', 'Mot de passe incorrect.');
-      } else if (error.message.includes('auth/user-not-found')) {
-        console.log('Utilisateur non trouvé pour l’email:', email);
+      // Gestion des erreurs personnalisées selon vos constantes Firebase
+      if (error.message.includes('Adresse email introuvable')) {
         Alert.alert('Erreur', 'Aucun compte trouvé avec cet email.');
-      } else if (error.message.includes('auth/invalid-email')) {
-        console.log('Format d’email invalide:', email);
-        Alert.alert('Erreur', 'Veuillez entrer un email valide.');
+      } else if (error.message.includes('Mot de passe incorrect')) {
+        Alert.alert('Erreur', 'Mot de passe incorrect. Veuillez réessayer.');
+      } else if (error.message.includes('Veuillez fournir un email et un mot de passe')) {
+        Alert.alert('Erreur', 'Veuillez entrer un email et un mot de passe.');
       } else {
         Alert.alert('Erreur', error.message || 'Une erreur inconnue est survenue.');
       }
@@ -133,7 +122,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.orText}>OR</Text>
         <View style={styles.line} />
       </View>
-      
+
       {/* Créer un compte */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don’t have an Account? </Text>

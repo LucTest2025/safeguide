@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -6,24 +6,24 @@ import {
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
+  Alert,
 } from "react-native";
 import * as Location from "expo-location";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAccessibleRefuges } from "../redux/actions/refugeActions";
+import { fetchAccessibleRefuges, fetchRefugePhotos } from "../redux/actions/refugeActions";
 import { FontAwesome } from "@expo/vector-icons";
 
 const RefugeListScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const { refuges, error } = useSelector((state) => state.refuges);
-  const [filteredRefuges, setFilteredRefuges] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const searchQuery = route.params?.searchQuery || ""; // Récupérer le texte de recherche
+  // Récupérer les données Redux
+  const { refuges, loading, error, photos } = useSelector((state) => state.refuges);
+  
+  const searchQuery = route.params?.searchQuery || "";
 
   useEffect(() => {
     (async () => {
-      // Demander la permission d'accéder à la localisation
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
@@ -33,59 +33,22 @@ const RefugeListScreen = ({ navigation, route }) => {
         return;
       }
 
-      // Obtenir la position actuelle de l'utilisateur
       let location = await Location.getCurrentPositionAsync({});
       const userLocation = {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       };
 
-      setUserLocation(userLocation); // Définir la position réelle
-      dispatch(fetchAccessibleRefuges(userLocation)); // Charger les refuges
-      setLoading(false);
-
-      // Mettre à jour la position en temps réel
-      const locationSubscription = await Location.watchPositionAsync(
-        {
-          accuracy: Location.Accuracy.High,
-          timeInterval: 5000, // Mettre à jour toutes les 5 secondes
-          distanceInterval: 10, // Mettre à jour tous les 10 mètres
-        },
-        (newLocation) => {
-          const updatedLocation = {
-            lat: newLocation.coords.latitude,
-            lng: newLocation.coords.longitude,
-          };
-          setUserLocation(updatedLocation);
-        }
-      );
-
-      // Nettoyer l'abonnement lors du démontage du composant
-      return () => {
-        if (locationSubscription) {
-          locationSubscription.remove();
-        }
-      };
+      // Lancer la récupération des refuges avec Redux
+      dispatch(fetchAccessibleRefuges(userLocation));
     })();
   }, [dispatch]);
 
   useEffect(() => {
-    if (userLocation) {
-      dispatch(fetchAccessibleRefuges(userLocation)); // Charger les refuges avec la position réelle
+    if (refuges.length > 0) {
+      dispatch(fetchRefugePhotos(refuges)); // Charger les photos une seule fois
     }
-  }, [dispatch, userLocation]);
-
-  useEffect(() => {
-    // Appliquer le filtrage des refuges si une recherche est effectuée
-    if (searchQuery) {
-      const filtered = refuges.filter((refuge) =>
-        refuge.nom.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredRefuges(filtered);
-    } else {
-      setFilteredRefuges(refuges);
-    }
-  }, [refuges, searchQuery]);
+  }, [dispatch, refuges]);
 
   if (loading) {
     return (
@@ -104,65 +67,54 @@ const RefugeListScreen = ({ navigation, route }) => {
     );
   }
 
-  if (!userLocation) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#1E1E4A" />
-        <Text>Chargement de la position...</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
-      {/* Bouton Retour */}
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <FontAwesome name="arrow-left" size={20} color="#FFF" />
         <Text style={styles.backButtonText}>Retour</Text>
       </TouchableOpacity>
 
       <FlatList
-        data={filteredRefuges}
+        data={refuges}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.refugeItem}>
-            <Text style={styles.refugeName}>{item.nom}</Text>
-            <Text style={styles.refugeDetails}>Commune : {item.commune}</Text>
-            <Text style={styles.refugeDetails}>
-              Distance : {item.distanceText}
-            </Text>
-            <Text style={styles.refugeDetails}>Type : {item.type}</Text>
-            {/* Bouton pour navigation en temps réel */}
-            <TouchableOpacity
-              style={styles.navigateButton}
-              onPress={() =>
-                navigation.navigate("RealTimeNavigation", {
-                  destination: {
-                    latitude: item.location.lat,
-                    longitude: item.location.lng,
-                  },
-                  destinationDetails: item.nom,
-                  currentLocation: userLocation, // Utiliser la position réelle
-                  distanceText: item.distanceText,
-                })
-              }
-            >
-              <Text style={styles.navigateButtonText}>
-                Naviguer vers ce refuge
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.card}>
+            {/* Affichage de la photo */}
+            {photos[item.place_id] ? (
+              <Image source={{ uri: photos[item.place_id] }} style={styles.cardImage} />
+            ) : (
+              <View style={styles.noImageContainer}>
+                <Text style={styles.noImageText}>Image non disponible</Text>
+              </View>
+            )}
+
+            {/* Contenu du refuge */}
+            <View style={styles.cardContent}>
+              <Text style={styles.refugeName}>{item.nom}</Text>
+              <Text style={styles.refugeDetails}>Commune : {item.commune}</Text>
+              <Text style={styles.refugeDetails}>Distance : {item.distanceText}</Text>
+              <Text style={styles.refugeDetails}>Type : {item.type}</Text>
+
+              {/* Bouton de navigation */}
+              <TouchableOpacity
+                style={styles.navigateButton}
+                onPress={() =>
+                  navigation.navigate("RealTimeNavigation", {
+                    destination: {
+                      latitude: item.location.lat,
+                      longitude: item.location.lng,
+                    },
+                    destinationDetails: item.nom,
+                    distanceText: item.distanceText,
+                  })
+                }
+              >
+                <Text style={styles.navigateButtonText}>Naviguer vers ce refuge</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
-        ListEmptyComponent={
-          <Text style={styles.noResultsText}>
-            {searchQuery
-              ? "Aucun refuge correspondant à votre recherche."
-              : "Aucun refuge accessible trouvé."}
-          </Text>
-        }
+        ListEmptyComponent={<Text style={styles.noResultsText}>Aucun refuge accessible trouvé.</Text>}
       />
     </View>
   );
@@ -180,11 +132,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFF',
   },
-  loadingText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#1E1E4A',
-  },
   errorContainer: {
     flex: 1,
     justifyContent: "center",
@@ -200,34 +147,59 @@ const styles = StyleSheet.create({
     backgroundColor: "#1E1E4A",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 32,
+    marginBottom: 16,
     alignSelf: "flex-start",
-    marginTop: 40,
+    marginTop: 56, // 🔹 Ajuste cette valeur pour descendre le bouton
   },
+  
   backButtonText: {
     color: "#FFF",
     fontSize: 16,
     marginLeft: 8,
   },
-  refugeItem: {
-    backgroundColor: "#f1f1f1",
+  card: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    marginBottom: 16,
+    overflow: "hidden",
+    elevation: 3, // Ombre Android
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  cardImage: {
+    width: "100%",
+    height: 150,
+  },
+  noImageContainer: {
+    width: "100%",
+    height: 150,
+    backgroundColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noImageText: {
+    color: "#555",
+  },
+  cardContent: {
     padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
   },
   refugeName: {
     fontSize: 18,
     fontWeight: "bold",
+    marginBottom: 4,
   },
   refugeDetails: {
     fontSize: 14,
     color: "#555",
+    marginBottom: 2,
   },
   navigateButton: {
-    marginTop: 10,
+    marginTop: 12,
     backgroundColor: "#1E1E4A",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: "center",
   },

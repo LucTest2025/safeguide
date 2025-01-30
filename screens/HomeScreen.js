@@ -24,7 +24,6 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
-      // Demander la permission d'accéder à la localisation
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
@@ -34,7 +33,6 @@ const HomeScreen = ({ navigation }) => {
         return;
       }
 
-      // Obtenir la position actuelle de l'utilisateur
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation({
         latitude: location.coords.latitude,
@@ -43,12 +41,11 @@ const HomeScreen = ({ navigation }) => {
         longitudeDelta: 0.01,
       });
 
-      // Mettre à jour la position en temps réel
       const locationSubscription = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          timeInterval: 5000, // Mettre à jour toutes les 5 secondes
-          distanceInterval: 10, // Mettre à jour tous les 10 mètres
+          timeInterval: 5000,
+          distanceInterval: 10,
         },
         (newLocation) => {
           setUserLocation({
@@ -60,7 +57,6 @@ const HomeScreen = ({ navigation }) => {
         }
       );
 
-      // Nettoyer l'abonnement lors du démontage du composant
       return () => {
         if (locationSubscription) {
           locationSubscription.remove();
@@ -70,7 +66,6 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    // Simuler la récupération de la position
     if (userLocation) {
       setLocation(userLocation);
     }
@@ -83,29 +78,21 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleGoNow = () => {
-    if (isSearching && destination.trim() !== "") {
-      // Navigation pour un refuge spécifique
-      navigation.navigate("RefugeList", {
-        userLocation: userLocation, // Utiliser la position réelle
-        searchQuery: destination.trim(), // Envoyer la recherche au composant RefugeList
-      });
-    } else {
-      // Navigation pour voir tous les refuges
-      navigation.navigate("RefugeList", {
-        userLocation: userLocation, // Utiliser la position réelle
-      });
-    }
+    navigation.navigate("RefugeList", {
+      userLocation: userLocation,
+      searchQuery: destination.trim() || undefined,
+    });
   };
 
   const handleSearchInput = (text) => {
     setDestination(text);
-    setIsSearching(text.trim() !== ""); // Activer la recherche si un texte est saisi
+    setIsSearching(text.trim() !== "");
   };
 
   if (!userLocation) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#1E1E4A" />
+        <ActivityIndicator size="large" color="#1E1E4A" accessibilityLabel="Chargement en cours" />
         <Text style={styles.loadingText}>Chargement de la position...</Text>
       </View>
     );
@@ -116,37 +103,49 @@ const HomeScreen = ({ navigation }) => {
       <MapView
         ref={mapViewRef}
         style={styles.map}
-        region={userLocation} // Utiliser la position réelle
+        region={userLocation}
         showsUserLocation
+        accessibilityLabel="Carte interactive affichant votre position et les refuges disponibles"
       >
-        {userLocation && (
-          <Marker coordinate={userLocation} title="Vous êtes ici" />
-        )}
+        {userLocation && <Marker coordinate={userLocation} title="Vous êtes ici" />} 
       </MapView>
 
       <View style={styles.searchContainer}>
         <TouchableOpacity
           style={styles.menuButton}
           onPress={() => navigation.openDrawer()}
+          accessibilityLabel="Ouvrir le menu"
+          accessible={true}
         >
           <Entypo name="menu" size={width * 0.06} color="#000" />
         </TouchableOpacity>
         <TextInput
           style={styles.searchInput}
           placeholder="Chercher un refuge"
-          placeholderTextColor="#A1A1A1"
+          placeholderTextColor="#6B6B6B"
           value={destination}
           onChangeText={handleSearchInput}
+          accessibilityLabel="Champ de recherche pour un refuge"
+          importantForAccessibility="yes"
         />
       </View>
 
-      <TouchableOpacity style={styles.goNowButton} onPress={handleGoNow}>
-        <Text style={styles.goNowText}>
-          {isSearching ? "Voir le refuge" : "Voir les refuges"}
-        </Text>
+      <TouchableOpacity
+        style={styles.goNowButton}
+        onPress={handleGoNow}
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel={isSearching ? "Voir le refuge sélectionné" : "Voir tous les refuges"}
+      >
+        <Text style={styles.goNowText}>{isSearching ? "Voir le refuge" : "Voir les refuges"}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.recenterButton} onPress={recenterMap}>
+      <TouchableOpacity
+        style={styles.recenterButton}
+        onPress={recenterMap}
+        accessible={true}
+        accessibilityLabel="Recentrer la carte sur votre position"
+      >
         <Text style={styles.recenterText}>Recentrer</Text>
       </TouchableOpacity>
     </View>
@@ -174,14 +173,14 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFF",
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
-    color: '#1E1E4A',
+    color: "#1E1E4A",
   },
   searchInput: {
     flex: 1,
